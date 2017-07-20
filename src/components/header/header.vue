@@ -12,7 +12,7 @@
         <div class="description">
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
-        <div v-if="seller.supports" class="supports">
+        <div v-if="seller.supports" class="support">
           <span class="icon" :class="classMap[seller.supports[0].type]"></span>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
@@ -29,17 +29,41 @@
     <div class="background">
       <img :src="seller.avatar" alt="" width="100%" height="100%">
     </div>
-    <div v-show="detailShow" class="detail">
-      <div class="detail-wrapper clearfix">
-        <div class="detail-main">
-          <h1 class='name'>{{seller.name}}</h1>
-          <star :size='48' :score='seller.score'></star>
+    <transition name="fade" mode="out-in">
+      <div v-show="detailShow" class="detail" >
+        <div class="detail-wrapper clearfix">
+          <div class="detail-main">
+            <h1 class='name'>{{seller.name}}</h1>
+            <div class="star-wrapper">
+              <star :size='48' :score='seller.score'></star>
+            </div>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">优惠信息</div>
+              <div class="line"></div>
+            </div>
+            <ul v-if="seller.supports" class="supports">
+              <li v-for="(item,index) in seller.supports" class="supports-item">
+                <span class="icon" :class="classMap[seller.supports[index].type]"></span>
+                <span class="desc">{{seller.supports[index].description}}</span>
+              </li>
+            </ul>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">商家公告</div>
+              <div class="line"></div>
+            </div>
+            <div class="bulletin">
+              <p class="content">{{seller.bulletin}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="detail-close" @click="close()">
+          <i class="fa fa-times" aria-hidden="true"></i>
         </div>
       </div>
-      <div class="detail-close">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </div>
-    </div>
+    </transition>
+
   </div>
 </template>
 
@@ -61,6 +85,9 @@
       showData(){
         this.detailShow=true
       },
+      close(){
+        this.detailShow=false
+      }
     },
     components:{
       star,
@@ -72,6 +99,8 @@
 </script>
 
 <style scoped>
+  @import '../../../static/css/reset.css';
+
 .header{
   position: relative;
   color:#fff;
@@ -90,12 +119,12 @@
 .avatar img{
   border-radius: 2px;
 }
-  .content{
+  .content-wrapper .content{
     display: inline-block;
     font-size:14px;
     margin-left:16px;
   }
-  .title{
+ .content .title{
     margin:2px 0 8px 0;
   }
   .brand{
@@ -108,7 +137,7 @@
     background-size:30px 18px;
     background-repeat:no-repeat;
   }
-  .name{
+  .content .name{
     vertical-align: top;
     margin-left:6px;
     font-size:16px;
@@ -120,10 +149,10 @@
     line-height: 12px;
     font-size:12px;
   }
-.supports{
+.support{
   font-size:0;
 }
-  .supports .icon{
+  .support>.icon{
     display: inline-block;
     vertical-align: top;
     width: 12px;
@@ -219,7 +248,21 @@
     width:100%;
     height:100%;
     overflow: auto;
-    background: rgba(7,17,27,0.8)
+    background: rgba(7,17,27,0.8);
+    transition:all 0.5s;
+    backdrop-filter:blur(10px)
+  }
+  .fade-transition{
+    opacity: 1;
+    background: rgba(7,17,27,0.8);
+  }
+  .fade-enter{
+    opacity: 0;
+    background: rgba(7,17,27,0);
+  }
+  .fade-leave-active{
+    opacity: 0;
+    background: rgba(7,17,27,0);
   }
   .detail-wrapper{
     width: 100%;
@@ -247,4 +290,60 @@
   .detail-close i{
     color:#fff;
   }
+  .star-wrapper{
+    margin-top:18px;
+    padding:2px 0;
+    text-align: center;
+  }
+  .detail-wrapper .title{
+    display: flex;
+    width: 80%;
+    margin:28px auto 24px auto;
+  }
+  .detail-wrapper .line{
+    flex:1;
+    position: relative;
+    top:-6px;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+  }
+  .detail-wrapper .text{
+    padding:0 12px;
+    font-weight: 700;
+    font-size:14px;
+  }
+  .supports{
+    width: 80%;
+    margin: 0 auto;
+  }
+  .supports-item{
+    padding:0 12px;
+    margin-bottom:12px;
+    font-size:0;
+  }
+  .supports-item:last-child{
+      margin: 0;
+  }
+  .supports-item>.icon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    margin-right:6px;
+    background-size:16px 16px;
+    background-repeat:no-repeat;
+  }
+  .supports-item .desc{
+    line-height: 16px;
+    font-size:12px;
+  }
+  .bulletin{
+    width: 80%;
+    margin: 0 auto;
+  }
+  .bulletin .content{
+    padding:0 12px;
+    line-height: 24px;
+    font-size:12px;
+  }
+
 </style>
