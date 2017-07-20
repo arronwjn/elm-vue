@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style scoped>
+
 #app {
   width: 100%;
   /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
