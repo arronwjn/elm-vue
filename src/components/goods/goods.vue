@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper"  id="menu">
       <ul>
-        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">
+        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)">
           <span class="text">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
             {{item.name}}
@@ -17,7 +17,7 @@
           <ul>
             <li v-for="food in item.foods" class="food-item">
               <div class="icon">
-                <img  width='57' height="57" :src="food.icon" alt="">
+                <img  width='57' height="57" :src="food.image" alt="">
               </div>
               <div class="content">
                 <h2 class="name">{{food.name}}</h2>
@@ -36,11 +36,13 @@
         </li>
       </ul>
     </div>
+    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll'
+  import shopcart from '../shopcart/shopcart.vue'
 
   const ERR_OK=0;
 
@@ -62,7 +64,7 @@
           for(let i=0;i<this.listHeight.length;i++){
             let height1=this.listHeight[i];
             let height2=this.listHeight[i+1];
-            if(!height2 || (this.scrollY>height1 && this.scrollY<height2)){
+            if(!height2 || (this.scrollY>=height1 && this.scrollY<height2)){
                 return i;
             }
           }
@@ -76,7 +78,6 @@
         .then(res=>{
             if(res.body.errno === ERR_OK){
               this.goods=res.body.data
-
               this.$nextTick(()=>{
                 this._initScroll()
                 this._calulateHeight();
@@ -86,8 +87,18 @@
         })
     },
     methods:{
+      selectMenu(index,event){
+        if(!event._constructed){
+          return;
+        }
+        let foodList=document.getElementById('foods').getElementsByClassName('food-list-hook');
+        let el=foodList[index]
+        this.foodsScroll.scrollToElement(el,300)
+      },
       _initScroll(){
-          this.menuScroll=new BScroll(document.getElementById('menu'),{})
+          this.menuScroll=new BScroll(document.getElementById('menu'),{
+            click:true
+          })
 
           this.foodsScroll=new BScroll(document.getElementById('foods'),{
             probeType:3
@@ -110,6 +121,9 @@
             console.log(this.listHeight)
           }
       },
+    },
+    components:{
+      shopcart,
     }
   }
 </script>
@@ -221,6 +235,10 @@
   .icon{
     flex:0 0 27px;
     margin-right:10px;
+    z-index:-1;
+  }
+  .icon img{
+    z-index:-1;
   }
   .content{
     flex:1;

@@ -13,7 +13,7 @@
         <router-link :to="{path:'/seller',activeClass:'router-link-exact-active'}">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view :seller='seller'></router-view>
   </div>
 </template>
 
@@ -54,6 +54,7 @@ export default {
   line-height:40px;
   border-bottom:1px solid rgba(7,17,27,0.1);
   position: relative;
+  z-index:200;
 }
 .tab:after{
   width: 100%;
@@ -62,7 +63,8 @@ export default {
   left:0;
   bottom:0;
   border-top:1px solid rgba(7,17,27,0.1);
-  content:' '
+  content:' ';
+  z-index:200;
 }
   .tab-item{
     flex:1;
