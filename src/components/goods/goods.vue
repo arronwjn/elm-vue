@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper"  id="menu">
       <ul>
-        <li v-for="item in goods" class="menu-item">
+        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">
           <span class="text">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
             {{item.name}}
@@ -12,7 +12,7 @@
     </div>
     <div class="foods-wrapper" id="foods">
       <ul>
-        <li v-for="item in goods" class="food-list">
+        <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods" class="food-item">
@@ -52,8 +52,22 @@
     },
     data(){
         return{
-          goods:[]
+          goods:[],
+          listHeight:[],
+          scrollY:0,
         }
+    },
+    computed:{
+      currentIndex(){
+          for(let i=0;i<this.listHeight.length;i++){
+            let height1=this.listHeight[i];
+            let height2=this.listHeight[i+1];
+            if(!height2 || (this.scrollY>height1 && this.scrollY<height2)){
+                return i;
+            }
+          }
+          return 0;
+      }
     },
     created(){
       this.classMap=['decrease','discount','special','invoice','guarantee'];
@@ -65,6 +79,7 @@
 
               this.$nextTick(()=>{
                 this._initScroll()
+                this._calulateHeight();
               })
 
             }
@@ -74,8 +89,27 @@
       _initScroll(){
           this.menuScroll=new BScroll(document.getElementById('menu'),{})
 
-          this.foodsScroll=new BScroll(document.getElementById('foods'),{})
-      }
+          this.foodsScroll=new BScroll(document.getElementById('foods'),{
+            probeType:3
+          })
+
+          this.foodsScroll.on('scroll',(pos)=>{
+              this.scrollY=Math.abs(Math.round(pos.y));
+//            console.log(this.scrollY)
+          })
+//        console.log(this.scrollY)
+      },
+      _calulateHeight(){
+          let foodList=document.getElementById('foods').getElementsByClassName('food-list-hook');
+          let height=0;
+          this.listHeight.push(height);
+          for(let i=0;i<foodList.length;i++){
+            let item=foodList[i]
+            height+=item.clientHeight;
+            this.listHeight.push(height)
+            console.log(this.listHeight)
+          }
+      },
     }
   }
 </script>
@@ -111,6 +145,16 @@
     background-size:12px 12px;
     background-repeat:no-repeat;
   }
+  .current{
+    position: relative;
+    margin-top:-1px;
+    z-index:10;
+    background-color: #fff;
+    font-weight: 700;
+  }
+  .menu-wrapper .current>.text{
+    border:none;
+  }
   .decrease{
     background-image: url('./images/decrease_3@3x.png');
   }
@@ -140,7 +184,7 @@
     position: absolute;
     left:0;
     bottom:0;
-    border-top:1px solid rgba(7,17,27,0.1);
+    /*border-top:1px solid rgba(7,17,27,0.1);*/
     content:' '
   }
   .goods .foods-wrapper{
