@@ -5,7 +5,9 @@
         <i class="fa fa-minus-circle inner" aria-hidden="true"></i>
       </div>
     </transition>
-    <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
+    <transition name="move-count">
+      <div class="cart-count" v-show="food.count>0"><span class="rotate" >{{food.count}}</span></div>
+    </transition>
     <div class="cart-add"><i class="fa fa-plus-circle" aria-hidden="true" @click="addCart($event)"></i></div>
   </div>
 </template>
@@ -27,7 +29,6 @@
             return;
         }
         if(!this.food.count){
-//            this.food.count==1;
             Vue.set(this.food,'count',1)
         }else{
             this.food.count++;
@@ -40,6 +41,7 @@
         }
         if(this.food.count){
             this.food.count--;
+
         }
       },
     }
@@ -82,6 +84,7 @@
   .move-enter-active .inner{
     transform: rotate(180deg);
   }
+
   .cart-count{
     display: inline-block;
     vertical-align: top;
@@ -90,7 +93,30 @@
     line-height: 24px;
     text-align: center;
     font-size:10px;
-    color:rgb(147,153,159)
+    color:rgb(147,153,159);
+    transition:all 0.2s linear;
+  }
+  .rotate{
+    display: inline-block;
+    line-height: 24px;
+    text-align: center;
+    font-size:10px;
+    transition:all 0.2s linear;
+    transform: rotate(0);
+  }
+  .move-count-transition{
+    opacity:1;
+    transform: translate3D(0,0,0);
+  }
+  .move-count-leave-active,.move-count-enter-active{
+    opacity:0;
+    transform: translate3D(24px,0,0);
+  }
+  .move-count-leave-active .rotate{
+    transform: rotate(-360deg);
+  }
+  .move-count-enter-active .rotate{
+    transform: rotate(-360deg);
   }
   .cart-add{
     display: inline-block;
