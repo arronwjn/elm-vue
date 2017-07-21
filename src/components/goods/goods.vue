@@ -30,6 +30,9 @@
                   <span class="now">￥{{food.price}}</span>
                   <span v-show="food.oldPrice" class="old">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontral :food="food"></cartcontral>
+                </div>
               </div>
             </li>
           </ul>
@@ -43,6 +46,7 @@
 <script>
   import BScroll from 'better-scroll'
   import shopcart from '../shopcart/shopcart.vue'
+  import cartcontral from '../cartcontral/cartcontral.vue'
 
   const ERR_OK=0;
 
@@ -101,6 +105,7 @@
           })
 
           this.foodsScroll=new BScroll(document.getElementById('foods'),{
+            click:true,
             probeType:3
           })
 
@@ -124,6 +129,7 @@
     },
     components:{
       shopcart,
+      cartcontral
     }
   }
 </script>
@@ -243,6 +249,7 @@
   .content{
     flex:1;
     font-size:0;
+    position: relative;
   }
   .content .name{
     margin:2px 0 8px 0;
@@ -276,5 +283,10 @@
     text-decoration: line-through;
     font-size:10px;
     color:rgb(147,153,159)
+  }
+  .cartcontrol-wrapper{
+    position: absolute;
+    right:0;
+    bottom:-6px;
   }
 </style>

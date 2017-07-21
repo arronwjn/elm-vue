@@ -16,6 +16,10 @@ export default new Router({
       component: Hello,
       children:[
         {
+          path:'',
+          redirect:'/goods'
+        },
+        {
           path:'/goods',
           component:Goods
         },
