@@ -15,7 +15,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item">
+            <li v-for="food in item.foods" class="food-item" @click="selectFood(food,$event)">
               <div class="icon">
                 <img  width='57' height="57" :src="food.image" alt="">
               </div>
@@ -40,12 +40,14 @@
       </ul>
     </div>
     <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
+    <food :food='selectedFood' ref='food'></food>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll'
   import shopcart from '../shopcart/shopcart.vue'
+  import food from '../food/food.vue'
   import cartcontral from '../cartcontral/cartcontral.vue'
 
   const ERR_OK=0;
@@ -61,6 +63,7 @@
           goods:[],
           listHeight:[],
           scrollY:0,
+          selectedFood:{}
         }
     },
     computed:{
@@ -123,9 +126,7 @@
 
           this.foodsScroll.on('scroll',(pos)=>{
               this.scrollY=Math.abs(Math.round(pos.y));
-//            console.log(this.scrollY)
           })
-//        console.log(this.scrollY)
       },
       _calulateHeight(){
           let foodList=document.getElementById('foods').getElementsByClassName('food-list-hook');
@@ -137,11 +138,19 @@
             this.listHeight.push(height)
             console.log(this.listHeight)
           }
+      },
+      selectFood(food,event){
+        if(!event._constructed){
+          return;
+        }
+        this.selectedFood=food;
+        this.$refs.food.show();
       }
     },
     components:{
       shopcart,
-      cartcontral
+      cartcontral,
+      food
     }
   }
 </script>

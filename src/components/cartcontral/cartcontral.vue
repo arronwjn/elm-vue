@@ -1,14 +1,14 @@
 <template>
   <div class="cartcontral">
     <transition name="move">
-      <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart($event)">
+      <div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart($event)">
         <i class="fa fa-minus-circle inner" aria-hidden="true"></i>
       </div>
     </transition>
     <transition name="move-count">
       <div class="cart-count" v-show="food.count>0"><span class="rotate" >{{food.count}}</span></div>
     </transition>
-    <div class="cart-add"><i class="fa fa-plus-circle" aria-hidden="true" @click="addCart($event)"></i></div>
+    <div class="cart-add"><i class="fa fa-plus-circle" aria-hidden="true" @click.stop.prevent="addCart($event)"></i></div>
   </div>
 </template>
 
