@@ -33,7 +33,7 @@
         }else{
             this.food.count++;
         }
-        console.log('aa')
+        // this.$dispatch("cart.add", event.target)
       },
       decreaseCart(event){
         if(!event._constructed){
@@ -56,39 +56,38 @@
   .cart-decrease{
     display: inline-block;
     padding:6px;
-    transition:all 0.2s linear;
+    transition:all 0.1s linear;
   }
   .inner{
     display:inline-block;
     line-height: 24px;
     font-size:24px;
     color:rgb(0,160,220);
-    transition:all 0.2s linear;
+    transition:all 0.4s linear;
     transform: rotate(0);
   }
   .move-transition{
     opacity:1;
-    transform: translate3D(0,0,0);
+    transform: translate3d(0,0,0);
   }
   .move-leave-active,.move-enter-active{
     opacity:0;
-    transform: translate3D(24px,0,0);
+    transform: translate3d(24px,0,0);
   }
   /*.move-enter-active{*/
     /*opacity:0;*/
     /*transform: translate3D(24px,0,0);*/
   /*}*/
   .move-leave-active .inner{
-    transform: rotate(180deg);
+    transform: rotate(360deg);
   }
   .move-enter-active .inner{
-    transform: rotate(180deg);
+    transform: rotate(360deg);
   }
 
   .cart-count{
     display: inline-block;
     vertical-align: top;
-    width: 12px;
     padding-top:6px;
     line-height: 24px;
     text-align: center;
@@ -97,11 +96,13 @@
     transition:all 0.2s linear;
   }
   .rotate{
+    vertical-align: top;
     display: inline-block;
     line-height: 24px;
     text-align: center;
-    font-size:10px;
-    transition:all 0.2s linear;
+    font-size:14px;
+    font-weight: 500;
+    transition:all 0.3s linear;
     transform: rotate(0);
   }
   .move-count-transition{
@@ -113,10 +114,10 @@
     transform: translate3D(24px,0,0);
   }
   .move-count-leave-active .rotate{
-    transform: rotate(-360deg);
+    transform: rotate(-180deg);
   }
   .move-count-enter-active .rotate{
-    transform: rotate(-360deg);
+    transform: rotate(-180deg);
   }
   .cart-add{
     display: inline-block;

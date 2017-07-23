@@ -54,7 +54,7 @@ export default {
   line-height:40px;
   border-bottom:1px solid rgba(7,17,27,0.1);
   position: relative;
-  z-index:200;
+  z-index:30;
 }
 .tab:after{
   width: 100%;
