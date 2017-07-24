@@ -98,6 +98,7 @@
             if(res.body.errno === ERR_OK){
               this.goods=res.body.data
               this.$nextTick(()=>{
+
                 this._initScroll()
                 this._calulateHeight();
               })
@@ -112,11 +113,11 @@
         }
         let foodList=document.getElementById('foods').getElementsByClassName('food-list-hook');
         let el=foodList[index]
-        this.foodsScroll.scrollToElement(el,300)
+        this.foodsScroll.scrollToElement(el,100)
       },
       _initScroll(){
           this.menuScroll=new BScroll(document.getElementById('menu'),{
-            click:true
+            click:true,
           })
 
           this.foodsScroll=new BScroll(document.getElementById('foods'),{
