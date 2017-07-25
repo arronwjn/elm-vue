@@ -244,10 +244,30 @@
           }
           .recommend{
             line-height: 16px;
+            font-size:0;
             .fa-thumbs-up,.item{
               display: inline-block;
               margin:0 8px 4px 0;
+              font-size:9px;
             }
+            .fa-thumbs-up{
+              color:rgb(0,160,220)
+            }
+            .item{
+              padding:0 6px;
+              border:1px solid rgba(7,17,27,0.1);
+              border-radius: 1px;
+              color:rgb(147,153,159);
+              background: #fff;
+            }
+          }
+          .time{
+            position: absolute;
+            top:0;
+            right:0;
+            line-height:12px;
+            font-size:12px;
+            color:rgb(127,153,159)
           }
         }
       }

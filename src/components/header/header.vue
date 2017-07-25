@@ -30,7 +30,7 @@
       <img :src="seller.avatar" alt="" width="100%" height="100%">
     </div>
     <transition name="fade" mode="out-in">
-      <div v-show="detailShow" class="detail" >
+      <div v-show="detailShow" class="detail">
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
             <h1 class='name'>{{seller.name}}</h1>
@@ -71,29 +71,29 @@
   import star from '../star/star'
 
   export default{
-    props:{
-        seller:{
-            type:Object,
-        }
+    props: {
+      seller: {
+        type: Object,
+      }
     },
     data(){
-      return{
-        detailShow:false
+      return {
+        detailShow: false
       }
     },
-    methods:{
+    methods: {
       showData(){
-        this.detailShow=true
+        this.detailShow = true
       },
       close(){
-        this.detailShow=false
+        this.detailShow = false
       }
     },
-    components:{
+    components: {
       star,
     },
     created(){
-      this.classMap=['decrease','discount','special','invoice','guarantee'];
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
     },
   }
 </script>
@@ -101,249 +101,292 @@
 <style scoped>
   @import '../../../static/css/reset.css';
 
-.header{
-  position: relative;
-  color:#fff;
-  background: rgba(7,17,27,0.5);
-  overflow: hidden;
-}
-  .content-wrapper{
+  .header {
     position: relative;
-    padding:24px 12px 18px 24px;
-    font-size:0;
+    color: #fff;
+    background: rgba(7, 17, 27, 0.5);
+    overflow: hidden;
   }
-  .avatar{
+
+  .content-wrapper {
+    position: relative;
+    padding: 24px 12px 18px 24px;
+    font-size: 0;
+  }
+
+  .avatar {
     display: inline-block;
     vertical-align: top;
   }
-.avatar img{
-  border-radius: 2px;
-}
-  .content-wrapper .content{
+
+  .avatar img {
+    border-radius: 2px;
+  }
+
+  .content-wrapper .content {
     display: inline-block;
-    font-size:14px;
-    margin-left:16px;
+    font-size: 14px;
+    margin-left: 16px;
   }
- .content .title{
-    margin:2px 0 8px 0;
+
+  .content .title {
+    margin: 2px 0 8px 0;
   }
-  .brand{
+
+  .brand {
     display: inline-block;
     vertical-align: top;
     width: 30px;
     height: 18px;
     background-image: url('./images/brand@2x.png');
-    -webkit-background-size:30px 18px;
-    background-size:30px 18px;
-    background-repeat:no-repeat;
+    -webkit-background-size: 30px 18px;
+    background-size: 30px 18px;
+    background-repeat: no-repeat;
   }
-  .content .name{
+
+  .content .name {
     vertical-align: top;
-    margin-left:6px;
-    font-size:16px;
-    line-height:18px;
-    font-weight:bold;
+    margin-left: 6px;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
   }
-  .description{
-    margin-bottom:10px;
+
+  .description {
+    margin-bottom: 10px;
     line-height: 12px;
-    font-size:12px;
+    font-size: 12px;
   }
-.support{
-  font-size:0;
-}
-  .support>.icon{
+
+  .support {
+    font-size: 0;
+  }
+
+  .support > .icon {
     display: inline-block;
     vertical-align: top;
     width: 12px;
     height: 12px;
     margin-right: 4px;
-    -webkit-background-size:12px 12px;
-    background-size:12px 12px;
-    background-repeat:no-repeat;
+    -webkit-background-size: 12px 12px;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
   }
-  .text{
+
+  .text {
     /*vertical-align: top;*/
-    font-size:10px;
-    line-height:14px;
+    font-size: 10px;
+    line-height: 14px;
   }
-  .decrease{
+
+  .decrease {
     background-image: url('./images/decrease_1@2x.png');
   }
-.discount{
-   background-image: url('./images/discount_1@2x.png');
- }
-.guarantee{
-  background-image: url('./images/guarantee_1@2x.png');
-}
-.invoice{
-  background-image: url('./images/invoice_1@2x.png');
-}
-.special{
-  background-image: url('./images/special_1@2x.png');
-}
-  .support-count{
+
+  .discount {
+    background-image: url('./images/discount_1@2x.png');
+  }
+
+  .guarantee {
+    background-image: url('./images/guarantee_1@2x.png');
+  }
+
+  .invoice {
+    background-image: url('./images/invoice_1@2x.png');
+  }
+
+  .special {
+    background-image: url('./images/special_1@2x.png');
+  }
+
+  .support-count {
     position: absolute;
     display: inline-block;
-    right:12px;
-    bottom:14px;
-    padding:0 8px;
+    right: 12px;
+    bottom: 14px;
+    padding: 0 8px;
     height: 24px;
     line-height: 27px;
     border-radius: 14px;
-    color:#fff;
-    background: rgba(0,0,0,0.2);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
     text-align: center;
   }
-  .count{
-    font-size:10px;
+
+  .count {
+    font-size: 10px;
     vertical-align: top;
   }
-  .right{
+
+  .right {
     vertical-align: top;
-    font-size:10px;
+    font-size: 10px;
     line-height: 27px;
     margin-left: 2px;
   }
-  .bulletin-wrapper{
+
+  .bulletin-wrapper {
     height: 28px;
     line-height: 31px;
-    padding:0 22px 0 12px;
+    padding: 0 22px 0 12px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size:10px;
-    background: rgba(7,17,27,0.2);
+    font-size: 10px;
+    background: rgba(7, 17, 27, 0.2);
   }
-  .bulletin-title{
+
+  .bulletin-title {
     display: inline-block;
     vertical-align: top;
     margin-top: 8px;
-    width:22px;
+    width: 22px;
     height: 12px;
     background-image: url(./images/bulletin@2x.png);
-    -webkit-background-size:22px 12px;
-    background-size:22px 12px;
-    background-repeat:no-repeat;
+    -webkit-background-size: 22px 12px;
+    background-size: 22px 12px;
+    background-repeat: no-repeat;
   }
-  .bulletin-text{
+
+  .bulletin-text {
     vertical-align: top;
-    font-size:10px;
-    margin:0 4px;
+    font-size: 10px;
+    margin: 0 4px;
   }
-  .background{
+
+  .background {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index:-1;
-    filter:blur(10px)
+    z-index: -1;
+    filter: blur(10px)
   }
-  .detail{
+
+  .detail {
     position: fixed;
-    z-index:300;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    z-index: 300;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: auto;
-    background: rgba(7,17,27,0.8);
-    transition:all 0.5s;
-    backdrop-filter:blur(10px);
+    background: rgba(7, 17, 27, 0.8);
+    transition: all 0.5s;
+    backdrop-filter: blur(10px);
   }
-  .fade-transition{
+
+  .fade-transition {
     opacity: 1;
-    background: rgba(7,17,27,0.8);
+    background: rgba(7, 17, 27, 0.8);
   }
-  .fade-enter{
+
+  .fade-enter {
     opacity: 0;
-    background: rgba(7,17,27,0);
+    background: rgba(7, 17, 27, 0);
   }
-  .fade-leave-active{
+
+  .fade-leave-active {
     opacity: 0;
-    background: rgba(7,17,27,0);
+    background: rgba(7, 17, 27, 0);
   }
-  .detail-wrapper{
+
+  .detail-wrapper {
     width: 100%;
     min-height: 100%;
   }
-  .detail-main{
+
+  .detail-main {
     margin-top: 64px;
     padding-bottom: 64px;
   }
-  .detail-main .name{
+
+  .detail-main .name {
     line-height: 16px;
     text-align: center;
     font-size: 16px;
     font-weight: 700;
   }
-  .detail-close{
+
+  .detail-close {
     position: relative;
-    width:32px;
+    width: 32px;
     height: 32px;
-    margin:-64px auto 0 auto;
-    clear:both;
+    margin: -64px auto 0 auto;
+    clear: both;
     font-size: 32px;
-    color:#fff;
+    color: #fff;
   }
-  .detail-close i{
-    color:#fff;
+
+  .detail-close i {
+    color: #fff;
   }
-  .star-wrapper{
-    margin-top:18px;
-    padding:2px 0;
+
+  .star-wrapper {
+    margin-top: 18px;
+    padding: 2px 0;
     text-align: center;
   }
-  .detail-wrapper .title{
+
+  .detail-wrapper .title {
     display: flex;
     width: 80%;
-    margin:28px auto 24px auto;
+    margin: 28px auto 24px auto;
   }
-  .detail-wrapper .line{
-    flex:1;
+
+  .detail-wrapper .line {
+    flex: 1;
     position: relative;
-    top:-6px;
-    border-bottom:1px solid rgba(255,255,255,0.2);
+    top: -6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
-  .detail-wrapper .text{
-    padding:0 12px;
+
+  .detail-wrapper .text {
+    padding: 0 12px;
     font-weight: 700;
-    font-size:14px;
+    font-size: 14px;
   }
-  .supports{
+
+  .supports {
     width: 80%;
     margin: 0 auto;
   }
-  .supports-item{
-    padding:0 12px;
-    margin-bottom:12px;
-    font-size:0;
+
+  .supports-item {
+    padding: 0 12px;
+    margin-bottom: 12px;
+    font-size: 0;
   }
-  .supports-item:last-child{
-      margin: 0;
+
+  .supports-item:last-child {
+    margin: 0;
   }
-  .supports-item>.icon{
+
+  .supports-item > .icon {
     display: inline-block;
     width: 16px;
     height: 16px;
     vertical-align: top;
-    margin-right:6px;
-    background-size:16px 16px;
-    background-repeat:no-repeat;
+    margin-right: 6px;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
   }
-  .supports-item .desc{
+
+  .supports-item .desc {
     line-height: 16px;
-    font-size:12px;
+    font-size: 12px;
   }
-  .bulletin{
+
+  .bulletin {
     width: 80%;
     margin: 0 auto;
   }
-  .bulletin .content{
-    padding:0 12px;
+
+  .bulletin .content {
+    padding: 0 12px;
     line-height: 24px;
-    font-size:12px;
+    font-size: 12px;
   }
 
 </style>
