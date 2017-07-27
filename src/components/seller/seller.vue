@@ -28,6 +28,10 @@
             </div>
           </li>
         </ul>
+        <div class="favorite" @click='toggleFavorite($event)'>
+          <i class="fa fa-heart" aria-hidden="true" :class="{'active':favorite}"></i>
+          <span class='text'>{{favoriteText}}</span>
+        </div>
       </div>
       <split></split>
       <div class="bulletin">
@@ -40,6 +44,24 @@
             <span class="icon" :class="classMap[seller.supports[index].type]"></span>
             <span class="text">{{seller.supports[index].description}}</span>
           </li>
+        </ul>
+      </div>
+      <split></split>
+      <div class="pics">
+        <h1 class="title">商家实景</h1>
+        <div class="pic-wrapper" id='pic-wrapper'>
+          <ul class="pic-list" id='pic-list'>
+            <li class="pic-item" v-for="pic in seller.pics">
+              <img :src="pic" alt="" width='120' height='90'>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <split></split>
+      <div class="info">
+        <h1 class='title'>商家信息</h1>
+        <ul>
+          <li class='info-item' v-for='info in seller.infos'>{{info}}</li>
         </ul>
       </div>
     </div>
@@ -57,26 +79,59 @@
         type: Object,
       }
     },
+    data(){
+      return{
+        favorite:false
+      }
+    },
+    computed:{
+      favoriteText(){
+        return this.favorite ? '已收藏':'收藏'
+      }
+    },
     created(){
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
     },
-    watch: {
-      seller: '_initScroll'
-
+    watch:{
+      seller:'_initScroll'
     },
-    ready(){
+    mounted(){
+      this._initScroll()
+      if(this.seller.pics){
+        let picWidth=120;
+        let margin=6;
+        let width=(picWidth+margin)*this.seller.pics.length - margin;
+        document.getElementById('pic-list').style.width=width+'px';
+        this.$nextTick(()=>{
+          if(!this.picScroll){
+            this.picScroll=new BScroll(document.getElementById('pic-wrapper'),{
+              scrollX:true,
+              eventPassthrough:'vertical'
+            })
+          }else{
+            this.picScroll.refresh()
+          }
 
-
+        })
+      }
     },
     methods: {
-      _initScroll(){
-        if (!this.scroll) {
-          this.scroll = new BScroll(document.getElementById('seller'), {
-            click: true
-          })
-        } else {
-          this.scroll.refresh()
+      toggleFavorite(event){
+        if(!event._constructed){
+          return;
         }
+        this.favorite=!this.favorite;
+      },
+      _initScroll(){
+        this.$nextTick(()=>{
+          if (!this.scroll) {
+            this.scroll = new BScroll(document.getElementById('seller'), {
+              click: true
+            })
+          } else {
+            this.scroll.refresh()
+          }
+        })
       }
     },
     components: {
@@ -95,6 +150,7 @@
     width: 100%;
     overflow: hidden;
     .overview {
+      position: relative;
       padding: 18px;
       .title {
         margin-bottom: 8px;
@@ -147,6 +203,28 @@
           }
         }
       }
+      .favorite{
+        position: absolute;
+        right:11px;
+        top:18px;
+        width: 50px;
+        text-align: center;
+        .fa-heart{
+          display: block;
+          margin-bottom: 4px;
+          font-size: 24px;
+          line-height: 24px;
+          color:#d4d6d9;
+          &.active{
+            color:rgb(240,20,20)
+          }
+        }
+        .text{
+          line-height: 10px;
+          font-size: 10px;
+          color:rgb(77,85,93)
+        }
+      }
     }
     .bulletin {
       padding: 18px 18px 0 18px;
@@ -171,6 +249,9 @@
           padding: 16px 12px;
           border-bottom: 1px solid rgba(7, 17, 27, 0.1);
           font-size: 0;
+          &:last-child{
+            border:none;
+          }
           .icon {
             display: inline-block;
             vertical-align: top;
@@ -205,6 +286,52 @@
             font-size: 12px;
             color: rgb(7, 17, 27)
           }
+        }
+      }
+    }
+    .pics{
+      padding:18px;
+      .title{
+        margin-bottom: 12px;
+        line-height: 14px;
+        color:rgb(7,17,27);
+        font-size: 14px;
+      }
+      .pic-wrapper{
+        width:100%;
+        overflow: hidden;
+        white-space: nowrap;
+        .pic-list{
+          font-size: 0;
+          .pic-item{
+            display: inline-block;
+            margin-right: 6px;
+            width:120px;
+            height:90px;
+            &:last-child{
+              margin:0;
+            }
+          }
+        }
+      }
+    }
+    .info{
+      padding:18px 18px 0 18px;
+      .title{
+        padding-bottom: 12px;
+        line-height: 14px;
+        border-bottom: 1px solid rgba(7,17,27,0.1);
+        color:rgb(7,17,27);
+        font-size: 14px;
+      }
+      .info-item{
+        padding:16px 12px;
+        line-height: 16px;
+        border-bottom: 1px solid rgba(7,17,27,0.1);
+        color:rgb(7,17,27);
+        font-size: 12px;
+        &:last-child{
+          border:none;
         }
       }
     }
