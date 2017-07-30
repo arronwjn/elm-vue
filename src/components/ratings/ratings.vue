@@ -86,7 +86,7 @@
       }
     },
     created(){
-      this.$http.get('/api/rating')
+      this.$http.get('/api/rating.json')
       .then(res=>{
         if(res.body.errno===ERR_OK){
           this.ratings=res.body.data
