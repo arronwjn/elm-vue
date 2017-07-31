@@ -29,7 +29,7 @@ export default {
     }
   },
   created(){
-    this.$http.get('/api/seller')
+    this.$http.get('https://arronwjn.github.io/api/seller')
       .then(res=>{
           if(res.body.errno===ERR_OK){
               this.seller=res.body.data;
