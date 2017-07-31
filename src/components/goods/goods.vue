@@ -95,6 +95,7 @@
 
       this.$http.get('/api/goods')
         .then(res=>{
+          
             if(res.body.errno === ERR_OK){
               this.goods=res.body.data
               this.$nextTick(()=>{
